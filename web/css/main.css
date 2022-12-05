@@ -1,0 +1,33 @@
+body {background-color: #dedede;}
+button:focus, input:focus {outline:0;}
+button {cursor: pointer;}
+.page {color: #5a5a5a; width: 100%; max-width: 800px; text-align: 
+                       center;background-color: #fafafa; margin: 0px auto; line-height: 200%}
+
+a {color: #117775;}
+a label {cursor: pointer;}
+
+.numberInput {width: 30px; border-radius: 3px; padding: 4px; text-align: center;}
+
+#numbers span {font-size: 120%; font-weight: bold;}
+
+pre, pre.code, p {text-align: left; margin-left: 50px; margin-right: 50px;}
+
+table {
+  border-collapse: collapse;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+td, th {
+  border: 1px solid #aaa;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+.inlineCode {font-family: Courier, monospace; background-color: #eee;}

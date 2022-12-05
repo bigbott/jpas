@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>JPaS Demo </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/jpas/css/main.css" rel="stylesheet" type="text/css">
+        <link href="/jpas/css/jquery.highlight.css" rel="stylesheet" type="text/css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/pure-min.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="page"><br>
+            <a href="/jpas/index.html">Home</a>
+            <h1> JPaS Demo </h1>
+            <p>
+                JPaS is a nano framework for creating traditional multi-page web apps in Java.
+                <a href="https://github.com/bigbott/jpas/wiki/JPas">Read more</a>
+            </p>
+            <h2>Examples:</h2>
+            <h4>Display smartphone page:</h4>
+            <a href="/jpas/demo?page=smartphone&id=000001">link 1 </a><br>
+            <a href="/jpas/demo/page/smartphone/id/000001">link 2 </a><br>
+            <a href="/jpas/demo/smartphone/000001">link 3 </a><br>
+
+            <p>JPaS supports three ways of including parameters in URL: </p>
+            <p>Link 1 href attribute looks like this: <span class="inlineCode">/jpas/demo?page=smartphone&id=000001</span>
+            it is a traditional way to send parameters in GET request. <br>
+            Link 2 href attribute looks like the follow <span class="inlineCode">/jpas/demo/page/smartphone/id/000001</span>
+            it is a "static" URL loved by Google and generally preferable.
+            Notice, that <span class="inlineCode">page</span> is required parameter that defines html template file.<br>
+            Link 3 href attribute looks like the follow <span class="inlineCode">/jpas/demo/smartphone/000001</span>
+            Parameters names was removed. Now, page parameter should always be first, just after servlet context. 
+            </p><br>
+
+            <p>Here is the server-side code:</p>
+            <pre class="code" data-language="js">
+    public class SmartphoneView implements JpasView {
+    @Override
+    public String createHtml(HttpServletRequest request, HttpServletResponse response, Map&lt;String, String[]&gt; params, Document doc, JpasModel model) {
+
+        //url contains parameters names - Link 1 and Link 2
+        //String smartphoneId = params.get("id")[0];
+        //url does not contains parameter names - Link 3
+        String smartphoneId = params.get("param1")[0];
+        
+        Smartphone phone = ((SmartphoneModel) model).getSmartphoneById(smartphoneId);
+
+        doc.select("head title").first().text(phone.title);
+
+        doc.select("#title h2").first().text(phone.title);
+        doc.select("#releaseDate h2").first().text(phone.releaseDate);
+        doc.select("#memory h2").first().text(phone.memory);
+
+        doc.select("#processor span").first().text(phone.processor);
+        doc.select("#display span").first().text(phone.display);
+        doc.select("#battery span").first().text(phone.battery);
+        doc.select("#camera span").first().text(phone.camera);
+        doc.select("#os span").first().text(phone.os);
+
+        return doc.toString();
+    }
+}
+
+            </pre>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+            <script src="/jpas/js/vendor/jquery.highlight.js"></script>
+            <script src="/jpas/js/main.js"></script>
+
+            <script>
+                'use strict';
+                $(function () {
+                    main.init();
+                });
+            </script>
+    </body>
+</html>
