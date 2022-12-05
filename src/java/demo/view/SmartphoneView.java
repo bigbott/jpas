@@ -22,10 +22,12 @@ public class SmartphoneView implements JpasView {
     @Override
     public String createHtml(HttpServletRequest request, HttpServletResponse response, Map<String, String[]> params, Document doc, JpasModel model) {
 
-        //url contains parameters names - Link 1 and Link 2
-        //String smartphoneId = params.get("id")[0];
-        //url does not contains parameter names - Link 3
-        String smartphoneId = params.get("param1")[0];
+        String smartphoneId = null;
+        if (params.containsKey("page")){ //url contains parameters names - Link 1 and Link 2
+            smartphoneId = params.get("id")[0];
+        } else {                        //url does not contains parameter names - Link 3
+            smartphoneId = params.get("param1")[0];
+        }
         
         Smartphone phone = ((SmartphoneModel) model).getSmartphoneById(smartphoneId);
 
