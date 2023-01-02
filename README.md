@@ -4,7 +4,7 @@ Java nano framework for creating traditional multi-page web apps
 **JPaS** stands for Java Pages Simplified, it serves `GET `requests and returns `HTML `in response.
 
 ### Why was it written?
-I needed a simple Java backend for my multi-page app. Though I could use Struts or Spring MVC, I wanted something simpler, smaller, predictable, and hopefully more performant. Also, I'm not too fond of templates as a phenomenon, no matter if JSP, Velocity, or Theamleaf -- JPaS parses plain HTML templates at server start time using JSoup and modifies Document (Java object) at request time. 
+I needed a simple Java backend for my multi-page app. Though I could use Struts or Spring MVC, I wanted something simpler, smaller, predictable, and hopefully more performant. Also, I'm not too fond of templates as a phenomenon, no matter if JSP, Velocity, or Theamleaf, JPaS parses plain HTML templates at server start time using JSoup and modifies Document (Java object) at request time. 
 
 ### Example
 Here is the server-code we required to write to process request in JPaS:
@@ -36,11 +36,39 @@ Here is the server-code we required to write to process request in JPaS:
     1. `/jpas/demo?page=smartphone&id=000001` - the traditional way of putting parameters in the query. Page parameter defines the template. 
     2. `/jpas/demo/page/smartphone/id/000001` - "static" URL loved by Google and generally preferable. 
     3. `/jpas/demo/smartphone/000001`   - "static" URL with parameter names omitted. JPaS parses URL (pathInfo) and creates paramsMap where keys are going like `param0`, `param1` `param2`, and so on. 
-    In last two examples browser will treat 000001 as document, as result only absolute and relative to root paths will work:
+    In the last two examples browser will treat 000001 as a document, as result only absolute and relative to root paths will work:
     `https://example.com/jpas/css/main.css` - will work;
                        `/jpas/css/main.css` - will work;
                              `css/main.css` - will not. But we should never use it anyway.  
-   
+
+### Configuration
+JPaS needs to know the packages where the `View `and `Model `classes are. We pass this info as init parameters to servlet: 
+`<servlet>
+
+        <servlet-name>jpasServlet</servlet-name>
+
+        <servlet-class>me.jpas.JpasServletController</servlet-class>
+
+        <load-on-startup>1</load-on-startup>
+
+        <init-param>
+
+            <param-name>viewPackage</param-name>
+
+            <param-value>demo.view</param-value>
+
+        </init-param>
+
+        <init-param>
+
+            <param-name>modelPackage</param-name>
+
+            <param-value>demo.model</param-value>
+
+        </init-param>
+
+    </servlet>`
+
 
 ### Size
 JPaS is really small - less than 200 lines of code.
@@ -57,10 +85,10 @@ The best way to start with JPaS is to download the project from github. If you d
 The project contains full demo code (client and server). 
 
 ### More simple Java frameworks
-**JRPC** is a Java JSON-RPC over HTTP web(*) mini framework. 
+**[JRPC](https://github.com/bigbott/jrpc)** is a Java JSON-RPC over HTTP web(*) mini framework. 
 *It can be used for creating back-ends for SPA web apps, mobile apps, desktop apps - any app that sends/receives JSON over HTTP.
 
-**JSId** - stands for Java Simple Identification. It is an authentication framework that uses custom encrypted JWT (JSON Web Tokens) for authentication. 
+**[JSId](https://github.com/bigbott/JSId)** - stands for Java Simple Identification. It is an authentication framework that uses custom encrypted JWT (JSON Web Tokens) for authentication. 
        It consists of a JQuery plugin that renders login/register dialogs and a Java Servlet Filter that check credentials and generates tokens. 
           (not finished yet)  
 
