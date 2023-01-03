@@ -84,13 +84,16 @@ The best way to start with JPaS is to download the project from github. If you d
 "Create a project from existing sources" option. Otherwise, please, change IDE or just copy-paste the code manually. 
 The project contains full demo code (client and server). 
 
+### Applicability
+As JPaS only serves GET requests, it should be combined with JRPC or any other RPC or REST framework which able to process AJAX POST (at least) requests to create a fully functional Java backend.
+Though, it is possible to think about cases when JPaS can be used standalone: for example customization (e.g. localization) of SPA. 
+
 ### More simple Java frameworks
 **[JRPC](https://github.com/bigbott/jrpc)** is a Java JSON-RPC over HTTP web(*) mini framework. 
 *It can be used for creating back-ends for SPA web apps, mobile apps, desktop apps - any app that sends/receives JSON over HTTP.
 
 **[JSId](https://github.com/bigbott/JSId)** - stands for Java Simple Identification. It is an authentication framework that uses custom encrypted JWT (JSON Web Tokens) for authentication. 
        It consists of a JQuery plugin that renders login/register dialogs and a Java Servlet Filter that check credentials and generates tokens. 
-          (not finished yet)  
 
 
 ### License
